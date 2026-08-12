@@ -3,3 +3,5 @@ node_modules/
 *.log
 leadflow.db
 .DS_Store
+
+.vercel

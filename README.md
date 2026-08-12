@@ -1,6 +1,6 @@
 # ⚡ LeadFlow 360 AI — Enterprise Lead Qualification & CRM Operations Suite
 
-![LeadFlow 360 AI Logo](logo.svg)
+![LeadFlow 360 AI Logo](logo.jpg)
 
 > **Architected & Built with Pride by VoidReformer**  
 > *"Don't sell AI features. Sell a finished business workflow."*
