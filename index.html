@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LeadFlow 360 AI — Enterprise Multi-Page Operations Suite</title>
+  <meta name="description" content="Enterprise Lead Ingestion, AI Intent Scoring & CRM Pipeline Suite powered by VoidReformer.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="app-layout">
+
+    <!-- Left Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="logo-badge">LF360</div>
+        <div>
+          <div class="brand-title">LeadFlow 360</div>
+          <div style="font-size:0.7rem; color:var(--text-muted); font-weight:600;">Enterprise Suite</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#pipeline-view" class="nav-item active" onclick="switchView('pipeline-view', this)">
+          <span class="nav-icon">📊</span> Sales Pipeline
+        </a>
+        <a href="#ingestion-view" class="nav-item" onclick="switchView('ingestion-view', this)">
+          <span class="nav-icon">📥</span> Lead Ingestion
+        </a>
+        <a href="#scoring-view" class="nav-item" onclick="switchView('scoring-view', this)">
+          <span class="nav-icon">🧠</span> Intent & Scoring
+        </a>
+        <a href="#responses-view" class="nav-item" onclick="switchView('responses-view', this)">
+          <span class="nav-icon">💬</span> Response Center
+        </a>
+        <a href="#insights-view" class="nav-item" onclick="switchView('insights-view', this)">
+          <span class="nav-icon">🎙️</span> Call Insights
+        </a>
+        
+        <div class="nav-divider">ACCOUNT & SETTINGS</div>
+
+        <a href="#account-view" class="nav-item" onclick="switchView('account-view', this)">
+          <span class="nav-icon">👤</span> Customer Profile
+        </a>
+        <a href="#settings-view" class="nav-item" onclick="switchView('settings-view', this)">
+          <span class="nav-icon">⚙️</span> System Settings
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <span class="creator-tag">⚡ Powered by VoidReformer Engine</span>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+
+      <!-- Top Navigation Header -->
+      <header class="top-header">
+        <h2 id="view-page-title" style="font-size:1.4rem; font-weight:900;">Sales Pipeline</h2>
+        <div style="display:flex; align-items:center; gap:16px;">
+          <div style="font-size:0.85rem; font-weight:700; color:var(--color-purple-dark);" id="topCustomerName">Customer Account Admin</div>
+          <button class="btn btn-primary" onclick="openIngestModal()">+ Register Lead</button>
+        </div>
+      </header>
+
+      <div class="content-container">
+
+        <!-- ================= VIEW 1: SALES PIPELINE KANBAN ================= -->
+        <section id="pipeline-view" class="page-view active">
+          <!-- KPI Stats Grid -->
+          <div class="stats-grid">
+            <div class="stat-card stat-purple">
+              <div class="stat-label">Total Lead Volume</div>
+              <div class="stat-value" id="statTotalLeads">0</div>
+              <div class="stat-sub">Multi-channel Inbound Queue</div>
+            </div>
+            <div class="stat-card stat-mint">
+              <div class="stat-label">High-Intent Pipeline</div>
+              <div class="stat-value" id="statHotLeads" style="color:#059669;">0</div>
+              <div class="stat-sub">SQL Qualified Threshold</div>
+            </div>
+            <div class="stat-card stat-amber">
+              <div class="stat-label">Estimated Contract Value</div>
+              <div class="stat-value" id="statPipelineVal" style="color:#B45309;">₹0</div>
+              <div class="stat-sub">Total Forecast Revenue</div>
+            </div>
+            <div class="stat-card stat-purple">
+              <div class="stat-label">SLA Violation Warnings</div>
+              <div class="stat-value" id="statOverdue" style="color:#E11D48;">0</div>
+              <div class="stat-sub">Overdue Follow-up Escalations</div>
+            </div>
+          </div>
+
+          <!-- 5-Column Sales Pipeline Kanban Board -->
+          <div class="kanban-board">
+            <div class="kanban-column" id="col-Lead-Ingestion">
+              <div class="column-header">
+                <div class="column-title" style="color:var(--stage-new);">📥 Lead Ingestion <span class="count-badge" id="count-Lead-Ingestion">0</span></div>
+              </div>
+              <div class="column-cards" id="cards-Lead-Ingestion"></div>
+            </div>
+
+            <div class="kanban-column" id="col-SQL-(Sales-Qualified)">
+              <div class="column-header">
+                <div class="column-title" style="color:var(--color-purple-dark);">🔥 SQL (Qualified) <span class="count-badge" id="count-SQL-(Sales-Qualified)">0</span></div>
+              </div>
+              <div class="column-cards" id="cards-SQL-(Sales-Qualified)"></div>
+            </div>
+
+            <div class="kanban-column" id="col-Proposal-&-Negotiation">
+              <div class="column-header">
+                <div class="column-title" style="color:#D97706;">📄 Proposal & Review <span class="count-badge" id="count-Proposal-&-Negotiation">0</span></div>
+              </div>
+              <div class="column-cards" id="cards-Proposal-&-Negotiation"></div>
+            </div>
+
+            <div class="kanban-column" id="col-Contract-Signed">
+              <div class="column-header">
+                <div class="column-title" style="color:#059669;">🏆 Contract Signed <span class="count-badge" id="count-Contract-Signed">0</span></div>
+              </div>
+              <div class="column-cards" id="cards-Contract-Signed"></div>
+            </div>
+
+            <div class="kanban-column" id="col-Archived-/-Lost">
+              <div class="column-header">
+                <div class="column-title" style="color:#E11D48;">❄️ Archived / Unqualified <span class="count-badge" id="count-Archived-/-Lost">0</span></div>
+              </div>
+              <div class="column-cards" id="cards-Archived-/-Lost"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= VIEW 2: LEAD INGESTION ================= -->
+        <section id="ingestion-view" class="page-view">
+          <div class="view-card">
+            <h3 style="margin-bottom:12px; color:var(--color-purple-dark);">📥 Dedicated Inbound Lead Registration</h3>
+            <p style="color:var(--text-muted); margin-bottom:20px;">Register new inbound lead specs from Web Forms, WhatsApp, or Email inquiries.</p>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+              <div>
+                <label style="font-weight:700; display:block; margin-bottom:6px;">Prospect Name / Company</label>
+                <input type="text" id="pageLeadName" placeholder="e.g. Vikram Sharma (Apex Real Estate)">
+              </div>
+              <div>
+                <label style="font-weight:700; display:block; margin-bottom:6px;">Contact Phone / Email</label>
+                <input type="text" id="pageLeadContact" placeholder="+919876543210 or vikram@apex.in">
+              </div>
+            </div>
+            <div style="margin-bottom:20px;">
+              <label style="font-weight:700; display:block; margin-bottom:6px;">Requirement Description</label>
+              <textarea id="pageLeadText" rows="6" placeholder="Paste lead inquiry text, budget, project goals..."></textarea>
+            </div>
+            <button class="btn btn-mint" onclick="submitPageIngest()">⚡ Run AI Qualification & Ingest</button>
+          </div>
+        </section>
+
+        <!-- ================= VIEW 3: INTENT & SCORING ================= -->
+        <section id="scoring-view" class="page-view">
+          <div class="view-card">
+            <h3 style="margin-bottom:12px; color:var(--color-purple-dark);">🧠 AI 128-Dim Intent & Lead Scoring Rules</h3>
+            <p style="color:var(--text-muted); margin-bottom:20px;">Review automated scoring weights, urgency parameters, and lead quality distribution.</p>
+            <div class="scoring-rules-grid">
+              <div class="rule-box">
+                <h4>💰 Budget Weights</h4>
+                <p>₹2,00,000+ ➔ <strong>+35 Points</strong></p>
+                <p>₹1,00,000+ ➔ <strong>+25 Points</strong></p>
+                <p>₹50,000+ ➔ <strong>+15 Points</strong></p>
+              </div>
+              <div class="rule-box">
+                <h4>🔥 Urgency Weights</h4>
+                <p>High Priority (ASAP/2 Weeks) ➔ <strong>+20 Points</strong></p>
+                <p>Medium Priority ➔ <strong>+10 Points</strong></p>
+              </div>
+              <div class="rule-box">
+                <h4>🎯 Qualification Threshold</h4>
+                <p>Score 80%+ ➔ <strong>SQL (Sales Qualified) 🔥</strong></p>
+                <p>Score &lt;80% ➔ <strong>Inbound Ingestion Queue</strong></p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= VIEW 4: RESPONSE CENTER ================= -->
+        <section id="responses-view" class="page-view">
+          <div class="view-card">
+            <h3 style="margin-bottom:12px; color:var(--color-purple-dark);">💬 Multi-Channel Proposal Response Center</h3>
+            <p style="color:var(--text-muted); margin-bottom:20px;">Automated 1-Click WhatsApp Deep-Links and Executive Email Proposals.</p>
+            <div id="responses-list-container"></div>
+          </div>
+        </section>
+
+        <!-- ================= VIEW 5: CALL INSIGHTS ================= -->
+        <section id="insights-view" class="page-view">
+          <div class="view-card">
+            <h3 style="margin-bottom:12px; color:var(--color-purple-dark);">🎙️ Executive Call Transcript Processor</h3>
+            <p style="color:var(--text-muted); margin-bottom:20px;">Parse audio meeting transcripts to update deal stages and action items.</p>
+            <div style="margin-bottom:16px;">
+              <label style="font-weight:700; display:block; margin-bottom:6px;">Select Lead</label>
+              <select id="insightsLeadSelect"></select>
+            </div>
+            <div style="margin-bottom:20px;">
+              <label style="font-weight:700; display:block; margin-bottom:6px;">Call Transcript / Executive Briefing Notes</label>
+              <textarea id="insightsTranscriptText" rows="6" placeholder="Paste meeting transcript text..."></textarea>
+            </div>
+            <button class="btn btn-primary" onclick="submitInsightsTranscript()">Process Meeting Insights</button>
+          </div>
+        </section>
+
+        <!-- ================= VIEW 6: CUSTOMER ACCOUNT & PROFILE ================= -->
+        <section id="account-view" class="page-view">
+          <div class="view-card">
+            <div style="display:flex; align-items:center; gap:20px; margin-bottom:24px;">
+              <div style="width:72px; height:72px; border-radius:999px; background:linear-gradient(135deg, var(--color-purple), var(--color-mint)); display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:900; color:#FFF;" id="custAvatar">CU</div>
+              <div>
+                <h3 style="font-size:1.4rem; font-weight:900; color:var(--text-main);" id="custDisplayName">Customer Account Admin</h3>
+                <p style="color:var(--color-purple-dark); font-weight:700;" id="custOrg">Company: Enterprise Client</p>
+                <p style="color:var(--text-muted); font-size:0.85rem;" id="custEmail">Email: admin@enterprise.com | Plan: <span style="color:#059669; font-weight:800;">Enterprise Pro Subscribed</span></p>
+              </div>
+            </div>
+
+            <h4 style="margin-bottom:14px; color:var(--text-main);">Edit Account & Business Details</h4>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px;">
+              <div>
+                <label style="font-weight:700; display:block; margin-bottom:6px;">Account Owner Name</label>
+                <input type="text" id="editCustName" placeholder="Enter Account Owner Name">
+              </div>
+              <div>
+                <label style="font-weight:700; display:block; margin-bottom:6px;">Company / Business Name</label>
+                <input type="text" id="editCustCompany" placeholder="Enter Business Name">
+              </div>
+              <div>
+                <label style="font-weight:700; display:block; margin-bottom:6px;">Work Email Address</label>
+                <input type="text" id="editCustEmail" placeholder="Enter Work Email Address">
+              </div>
+              <div>
+                <label style="font-weight:700; display:block; margin-bottom:6px;">Subscription Tier</label>
+                <input type="text" value="Enterprise Pro ($79/mo Active)" disabled style="background:#F1F5F9; color:#059669; font-weight:800;">
+              </div>
+            </div>
+            <button class="btn btn-mint" onclick="saveCustomerProfile()">💾 Save Account Profile</button>
+          </div>
+        </section>
+
+        <!-- ================= VIEW 7: SYSTEM SETTINGS ================= -->
+        <section id="settings-view" class="page-view">
+          <div class="view-card">
+            <h3 style="margin-bottom:12px; color:var(--color-purple-dark);">⚙️ System & AI Gateway Settings</h3>
+            <p style="color:var(--text-muted); margin-bottom:20px;">Configure AI Models, API Providers, and SLA Escalation Parameters.</p>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+              <div>
+                <label style="font-weight:700; display:block; margin-bottom:6px;">Active AI Model Provider</label>
+                <select id="settingProvider">
+                  <option value="openai">OpenAI (gpt-4o-mini / gpt-4o)</option>
+                  <option value="gemini">Google Gemini 2.5 Flash</option>
+                  <option value="claude">Anthropic Claude 3.5 Sonnet</option>
+                </select>
+              </div>
+              <div>
+                <label style="font-weight:700; display:block; margin-bottom:6px;">SLA Follow-up Escalation Window</label>
+                <select id="settingSla">
+                  <option value="24">24 Hours (Standard)</option>
+                  <option value="12">12 Hours (High Priority)</option>
+                  <option value="48">48 Hours</option>
+                </select>
+              </div>
+            </div>
+            <div style="margin-top:24px;">
+              <button class="btn btn-mint" onclick="alert('Settings saved successfully!')">💾 Save Settings</button>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Ingest Modal -->
+  <div class="modal-overlay" id="ingestModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="color:var(--color-purple-dark);">📥 Register Inbound Lead</h3>
+        <button class="close-btn" onclick="closeIngestModal()">&times;</button>
+      </div>
+      <div>
+        <label style="display:block; margin-bottom:6px; font-weight:700; color:var(--text-muted);">Prospect Name</label>
+        <input type="text" id="leadNameInput" placeholder="e.g. Vikram Sharma">
+      </div>
+      <div>
+        <label style="display:block; margin-bottom:6px; font-weight:700; color:var(--text-muted);">Contact Details</label>
+        <input type="text" id="leadContactInput" placeholder="+919876543210 or vikram@corp.com">
+      </div>
+      <div>
+        <label style="display:block; margin-bottom:6px; font-weight:700; color:var(--text-muted);">Raw Requirement Specification</label>
+        <textarea id="rawTextInput" rows="5" placeholder="Paste inquiry text..."></textarea>
+      </div>
+      <div style="display:flex; justify-content:flex-end; gap:12px;">
+        <button class="btn btn-secondary" onclick="closeIngestModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="submitLeadIngest()">Run AI Qualification</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Call Transcript Modal -->
+  <div class="modal-overlay" id="transcriptModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="color:var(--color-purple-dark);">🎙️ Log Executive Meeting Brief</h3>
+        <button class="close-btn" onclick="closeTranscriptModal()">&times;</button>
+      </div>
+      <input type="hidden" id="transcriptLeadId">
+      <div>
+        <label style="display:block; margin-bottom:6px; font-weight:700; color:var(--text-muted);">Call Transcript Text</label>
+        <textarea id="transcriptInput" rows="6" placeholder="Paste transcript notes..."></textarea>
+      </div>
+      <div style="display:flex; justify-content:flex-end; gap:12px;">
+        <button class="btn btn-secondary" onclick="closeTranscriptModal()">Cancel</button>
+        <button class="btn btn-mint" onclick="submitTranscript()">Process Meeting Insights</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPA Router & Multi-Page View Logic -->
+  <script>
+    const STAGES = [
+      "Lead Ingestion",
+      "SQL (Sales Qualified)",
+      "Proposal & Negotiation",
+      "Contract Signed",
+      "Archived / Lost"
+    ];
+
+    let cachedLeads = [];
+
+    function switchView(viewId, navElem) {
+      document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+      const targetView = document.getElementById(viewId);
+      if (targetView) targetView.classList.add('active');
+      if (navElem) navElem.classList.add('active');
+
+      const titles = {
+        'pipeline-view': 'Sales Pipeline',
+        'ingestion-view': 'Lead Ingestion',
+        'scoring-view': 'Intent & Scoring Rules',
+        'responses-view': 'Response Center',
+        'insights-view': 'Call Insights Processor',
+        'account-view': 'Customer Profile & Subscription',
+        'settings-view': 'System Settings'
+      };
+      document.getElementById('view-page-title').innerText = titles[viewId] || 'Dashboard';
+
+      if (viewId === 'responses-view') renderResponseCenter();
+      if (viewId === 'insights-view') populateInsightsSelect();
+    }
+
+    function saveCustomerProfile() {
+      const name = document.getElementById('editCustName').value || 'Customer Account Admin';
+      const company = document.getElementById('editCustCompany').value || 'Enterprise Client';
+      const email = document.getElementById('editCustEmail').value || 'admin@enterprise.com';
+
+      document.getElementById('custDisplayName').innerText = name;
+      document.getElementById('topCustomerName').innerText = name;
+      document.getElementById('custOrg').innerText = 'Company: ' + company;
+      document.getElementById('custEmail').innerHTML = 'Email: ' + email + ' | Plan: <span style="color:#059669; font-weight:800;">Enterprise Pro Subscribed</span>';
+
+      const initials = name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'CU';
+      document.getElementById('custAvatar').innerText = initials;
+
+      alert("Customer profile updated successfully!");
+    }
+
+    async function fetchLeads() {
+      try {
+        const res = await fetch('/api/leads');
+        const data = await res.json();
+        if (data.success) {
+          cachedLeads = data.leads;
+          renderDashboard(data.stats, data.leads);
+        }
+      } catch (err) {
+        console.error("Error fetching leads:", err);
+      }
+    }
+
+    function renderDashboard(stats, leads) {
+      document.getElementById('statTotalLeads').innerText = stats.totalLeads;
+      document.getElementById('statHotLeads').innerText = stats.hotLeads;
+      document.getElementById('statPipelineVal').innerText = '₹' + stats.totalPipelineValue.toLocaleString('en-IN');
+      document.getElementById('statOverdue').innerText = stats.overdueAlerts;
+
+      STAGES.forEach(stage => {
+        const colId = stage.replace(/[ /()&]/g, '-');
+        const cardElem = document.getElementById(`cards-${colId}`);
+        const countElem = document.getElementById(`count-${colId}`);
+        if (cardElem) cardElem.innerHTML = '';
+        if (countElem) countElem.innerText = '0';
+      });
+
+      const stageMap = {};
+      STAGES.forEach(s => stageMap[s] = []);
+      leads.forEach(l => {
+        if (stageMap[l.stage]) stageMap[l.stage].push(l);
+        else stageMap["Lead Ingestion"].push(l);
+      });
+
+      STAGES.forEach(stage => {
+        const colId = stage.replace(/[ /()&]/g, '-');
+        const container = document.getElementById(`cards-${colId}`);
+        const countElem = document.getElementById(`count-${colId}`);
+        const stageLeads = stageMap[stage] || [];
+        if (countElem) countElem.innerText = stageLeads.length;
+
+        if (container) {
+          stageLeads.forEach(lead => {
+            const card = document.createElement('div');
+            card.className = `lead-card ${lead.score >= 80 ? 'hot-lead' : ''}`;
+            card.innerHTML = `
+              <div class="lead-card-header">
+                <div class="lead-name">${lead.name}</div>
+                <div class="score-pill">${lead.score}% Score</div>
+              </div>
+              <div class="lead-intent">${lead.intent_summary || lead.raw_text}</div>
+              <div class="lead-meta">
+                <span class="budget-tag">₹${(lead.budget_val || 0).toLocaleString('en-IN')}</span>
+                <span class="channel-tag">${lead.channel}</span>
+              </div>
+              <div class="card-actions">
+                <button class="btn btn-secondary btn-sm" onclick="openWhatsApp('${lead.whatsapp_draft}')">💬 WhatsApp</button>
+                <button class="btn btn-primary btn-sm" onclick="openTranscriptModal(${lead.id})">🎙️ Brief</button>
+                <select onchange="updateStage(${lead.id}, this.value)" style="padding:4px; font-size:0.75rem;">
+                  ${STAGES.map(s => `<option value="${s}" ${s === lead.stage ? 'selected' : ''}>${s}</option>`).join('')}
+                </select>
+              </div>
+            `;
+            container.appendChild(card);
+          });
+        }
+      });
+    }
+
+    function renderResponseCenter() {
+      const container = document.getElementById('responses-list-container');
+      container.innerHTML = '';
+      if (!cachedLeads.length) {
+        container.innerHTML = '<p style="color:var(--text-muted);">No leads currently in database.</p>';
+        return;
+      }
+
+      cachedLeads.forEach(l => {
+        const box = document.createElement('div');
+        box.className = 'rule-box';
+        box.style.marginBottom = '16px';
+        box.innerHTML = `
+          <h4>${l.name} (${l.stage}) — ${l.score}% Score</h4>
+          <p><strong>WhatsApp Draft:</strong> ${l.whatsapp_draft || 'N/A'}</p>
+          <div style="margin-top:8px;">
+            <button class="btn btn-mint btn-sm" onclick="openWhatsApp('${l.whatsapp_draft}')">💬 Launch WhatsApp</button>
+          </div>
+        `;
+        container.appendChild(box);
+      });
+    }
+
+    function populateInsightsSelect() {
+      const select = document.getElementById('insightsLeadSelect');
+      select.innerHTML = '';
+      if (!cachedLeads.length) {
+        select.innerHTML = '<option value="">No leads available</option>';
+        return;
+      }
+      cachedLeads.forEach(l => {
+        const opt = document.createElement('option');
+        opt.value = l.id;
+        opt.innerText = `${l.name} — ${l.stage}`;
+        select.appendChild(opt);
+      });
+    }
+
+    async function submitPageIngest() {
+      const name = document.getElementById('pageLeadName').value;
+      const contact = document.getElementById('pageLeadContact').value;
+      const raw_text = document.getElementById('pageLeadText').value;
+      if (!raw_text) return alert("Please enter requirement text");
+
+      const res = await fetch('/api/leads/ingest', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, contact, raw_text })
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert("Lead Ingested & Qualified!");
+        fetchLeads();
+        switchView('pipeline-view');
+      }
+    }
+
+    async function submitInsightsTranscript() {
+      const leadId = document.getElementById('insightsLeadSelect').value;
+      const transcript = document.getElementById('insightsTranscriptText').value;
+      if (!transcript) return alert("Please enter transcript text");
+
+      const res = await fetch(`/api/leads/${leadId}/transcript`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ transcript })
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert("Meeting Insights Processed!");
+        fetchLeads();
+        switchView('pipeline-view');
+      }
+    }
+
+    async function updateStage(leadId, newStage) {
+      const res = await fetch(`/api/leads/${leadId}/stage`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ stage: newStage })
+      });
+      const data = await res.json();
+      if (data.success) fetchLeads();
+    }
+
+    function openIngestModal() { document.getElementById('ingestModal').classList.add('active'); }
+    function closeIngestModal() { document.getElementById('ingestModal').classList.remove('active'); }
+    async function submitLeadIngest() {
+      const name = document.getElementById('leadNameInput').value;
+      const contact = document.getElementById('leadContactInput').value;
+      const raw_text = document.getElementById('rawTextInput').value;
+      if (!raw_text) return alert("Please enter raw text");
+      const res = await fetch('/api/leads/ingest', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, contact, raw_text })
+      });
+      const data = await res.json();
+      if (data.success) {
+        closeIngestModal();
+        document.getElementById('rawTextInput').value = '';
+        fetchLeads();
+      }
+    }
+
+    function openTranscriptModal(leadId) {
+      document.getElementById('transcriptLeadId').value = leadId;
+      document.getElementById('transcriptModal').classList.add('active');
+    }
+    function closeTranscriptModal() { document.getElementById('transcriptModal').classList.remove('active'); }
+    async function submitTranscript() {
+      const leadId = document.getElementById('transcriptLeadId').value;
+      const transcript = document.getElementById('transcriptInput').value;
+      if (!transcript) return alert("Please enter transcript");
+      const res = await fetch(`/api/leads/${leadId}/transcript`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ transcript })
+      });
+      const data = await res.json();
+      if (data.success) {
+        closeTranscriptModal();
+        document.getElementById('transcriptInput').value = '';
+        fetchLeads();
+      }
+    }
+
+    function openWhatsApp(draft) {
+      window.open(`https://wa.me/?text=${encodeURIComponent(draft || "Proposal details")}`, '_blank');
+    }
+
+    fetchLeads();
+  </script>
+</body>
+</html>
