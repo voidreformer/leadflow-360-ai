@@ -130,6 +130,10 @@ app.delete('/api/leads/:id', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 LeadFlow 360 AI Server running on http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`🚀 LeadFlow 360 AI Server running on http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
