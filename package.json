@@ -1,32 +1,32 @@
 {
   "name": "@voidreformer/leadflow-360-ai",
-  "version": "1.0.0",
-  "description": "LeadFlow 360 AI — Enterprise Lead Qualification, Intent Scoring & CRM Automation Pipeline",
+  "version": "1.0.1",
+  "description": "Enterprise AI Inbound Lead Qualification, 128-Dim Intent Scoring & CRM Pipeline Operations Suite by VoidReformer.",
   "main": "server.js",
-  "bin": {
-    "leadflow-360-ai": "./bin/cli.js"
-  },
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "test": "node test_leadflow_extreme.js"
+    "test": "node test_leadflow_no_mercy.js"
   },
   "keywords": [
-    "ai",
-    "lead-generation",
-    "crm",
-    "automation",
-    "sales-pipeline",
-    "intent-scoring",
-    "whatsapp-crm"
+    "ai-crm",
+    "lead-qualification",
+    "sales-automation",
+    "lead-scoring",
+    "wasm-sqlite",
+    "whatsapp-crm",
+    "voidreformer"
   ],
   "author": "VoidReformer",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "sql.js": "^1.10.3"
+    "sql.js": "^1.11.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/voidreformer/leadflow-360-ai.git"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
