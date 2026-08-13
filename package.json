@@ -1,6 +1,6 @@
 {
   "name": "@voidreformer/leadflow-360-ai",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Enterprise AI Inbound Lead Qualification, 128-Dim Intent Scoring & CRM Pipeline Operations Suite by VoidReformer.",
   "main": "server.js",
   "scripts": {
@@ -24,10 +24,7 @@
     "express": "^4.19.2",
     "sql.js": "^1.11.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/voidreformer/leadflow-360-ai.git"
-  },
+  "repository": "https://github.com/voidreformer/leadflow-360-ai",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   }
