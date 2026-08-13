@@ -217,12 +217,12 @@
               <div>
                 <h3 style="font-size:1.4rem; font-weight:900; color:var(--text-main);" id="custDisplayName">Customer Account Admin</h3>
                 <p style="color:var(--color-purple-dark); font-weight:700;" id="custOrg">Company: Enterprise Client</p>
-                <p style="color:var(--text-muted); font-size:0.85rem;" id="custEmail">Email: admin@enterprise.com | Plan: <span style="color:#059669; font-weight:800;">Enterprise Pro Subscribed</span></p>
+                <p style="color:var(--text-muted); font-size:0.85rem;" id="custEmail">Email: admin@enterprise.com</p>
               </div>
             </div>
 
             <h4 style="margin-bottom:14px; color:var(--text-main);">Edit Account & Business Details</h4>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px;">
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:16px; margin-bottom:20px;">
               <div>
                 <label style="font-weight:700; display:block; margin-bottom:6px;">Account Owner Name</label>
                 <input type="text" id="editCustName" placeholder="Enter Account Owner Name">
@@ -234,10 +234,6 @@
               <div>
                 <label style="font-weight:700; display:block; margin-bottom:6px;">Work Email Address</label>
                 <input type="text" id="editCustEmail" placeholder="Enter Work Email Address">
-              </div>
-              <div>
-                <label style="font-weight:700; display:block; margin-bottom:6px;">Subscription Tier</label>
-                <input type="text" value="Enterprise Pro ($79/mo Active)" disabled style="background:#F1F5F9; color:#059669; font-weight:800;">
               </div>
             </div>
             <button class="btn btn-mint" onclick="saveCustomerProfile()">💾 Save Account Profile</button>
@@ -349,7 +345,7 @@
         'scoring-view': 'Intent & Scoring Rules',
         'responses-view': 'Response Center',
         'insights-view': 'Call Insights Processor',
-        'account-view': 'Customer Profile & Subscription',
+        'account-view': 'Customer Profile',
         'settings-view': 'System Settings'
       };
       document.getElementById('view-page-title').innerText = titles[viewId] || 'Dashboard';
@@ -366,7 +362,7 @@
       document.getElementById('custDisplayName').innerText = name;
       document.getElementById('topCustomerName').innerText = name;
       document.getElementById('custOrg').innerText = 'Company: ' + company;
-      document.getElementById('custEmail').innerHTML = 'Email: ' + email + ' | Plan: <span style="color:#059669; font-weight:800;">Enterprise Pro Subscribed</span>';
+      document.getElementById('custEmail').innerText = 'Email: ' + email;
 
       const initials = name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'CU';
       document.getElementById('custAvatar').innerText = initials;
