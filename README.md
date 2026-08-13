@@ -60,4 +60,4 @@ Runs 15+ extreme automated stress tests verifying DB survival under SQL Injectio
 
 ## 📄 License & Attribution
 
-MIT License © 2026 **VoidReformer**. Created by VoidReformer.
+MIT License 2026 **VoidReformer**. Created by VoidReformer.
