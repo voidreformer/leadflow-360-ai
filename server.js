@@ -9,6 +9,8 @@ const PORT = process.env.PORT || 3005;
 
 app.use(cors());
 app.use(express.json());
+
+// Serve static assets with explicit root dir
 app.use(express.static(path.join(__dirname)));
 
 app.get('/api/leads', async (req, res) => {
@@ -128,6 +130,14 @@ app.delete('/api/leads/:id', async (req, res) => {
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
+});
+
+// Wildcard Route — serve index.html for all SPA non-API requests
+app.get('*', (req, res) => {
+  if (req.path.startsWith('/api')) {
+    return res.status(444).json({ error: "API endpoint not found" });
+  }
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
