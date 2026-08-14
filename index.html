@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LeadFlow 360 AI — Enterprise Multi-Page Operations Suite</title>
-  <meta name="description" content="Enterprise Lead Ingestion, AI Intent Scoring & CRM Pipeline Suite powered by VoidReformer.">
+  <title>LeadFlow 360 AI — Enterprise Inbound Lead Qualification & WhatsApp CRM Suite</title>
+  <meta name="description" content="Autonomous 128-Dimensional AI Lead Intent Scoring, 1-Click WhatsApp Proposal Triggers & Sales Pipeline CRM powered by VoidReformer Engine.">
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -24,7 +24,10 @@
       </div>
 
       <nav class="sidebar-nav">
-        <a href="#pipeline-view" class="nav-item active" onclick="switchView('pipeline-view', this)">
+        <a href="#landing-view" class="nav-item active" onclick="switchView('landing-view', this)">
+          <span class="nav-icon">🚀</span> Landing Page
+        </a>
+        <a href="#pipeline-view" class="nav-item" onclick="switchView('pipeline-view', this)">
           <span class="nav-icon">📊</span> Sales Pipeline
         </a>
         <a href="#ingestion-view" class="nav-item" onclick="switchView('ingestion-view', this)">
@@ -60,7 +63,7 @@
 
       <!-- Top Navigation Header -->
       <header class="top-header">
-        <h2 id="view-page-title" style="font-size:1.4rem; font-weight:900;">Sales Pipeline</h2>
+        <h2 id="view-page-title" style="font-size:1.4rem; font-weight:900;">Product Showcase & Landing Page</h2>
         <div style="display:flex; align-items:center; gap:16px;">
           <div style="font-size:0.85rem; font-weight:700; color:var(--color-purple-dark);" id="topCustomerName">Customer Account Admin</div>
           <button class="btn btn-primary" onclick="openIngestModal()">+ Register Lead</button>
@@ -69,8 +72,112 @@
 
       <div class="content-container">
 
+        <!-- ================= VIEW 0: LANDING PAGE SHOWCASE ================= -->
+        <section id="landing-view" class="page-view active">
+          <!-- Hero Banner Box -->
+          <div class="hero-container">
+            <span class="hero-pill">✨ Autonomous Sales Operations Engine • Powered by VoidReformer</span>
+            <h1 class="hero-headline">Turn Inbound Inquiries into Closed Deals 3.5x Faster</h1>
+            <p class="hero-subhead">
+              Autonomous 128-dimensional AI lead intent scoring, instant 1-click WhatsApp proposal triggers, and 5-stage real-time sales Kanban pipeline.
+            </p>
+            <div class="hero-actions">
+              <button class="btn btn-primary" onclick="switchView('pipeline-view')">📊 Launch Sales Pipeline</button>
+              <button class="btn btn-mint" onclick="switchView('ingestion-view')">⚡ Run AI Qualifier</button>
+              <a href="https://github.com/voidreformer/leadflow-360-ai" target="_blank" class="btn btn-secondary">📦 View GitHub Repo</a>
+            </div>
+
+            <!-- Hero Live Preview Widget -->
+            <div class="hero-preview-card">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; border-bottom:1px solid rgba(255,255,255,0.15); padding-bottom:10px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <span style="width:12px; height:12px; border-radius:999px; background:#60FF8C; display:inline-block; box-shadow:0 0 10px #60FF8C;"></span>
+                  <strong style="font-size:0.95rem; color:#F8FAFC;">LIVE AI QUALIFICATION SIMULATOR</strong>
+                </div>
+                <span class="score-pill">96% AI Intent Score 🔥</span>
+              </div>
+              <p style="color:#94A3B8; font-size:0.9rem; margin-bottom:14px; line-height:1.5;">
+                "Looking for enterprise real estate CRM software for 20 sales agents. Budget ₹2,50,000. Need deployment within 2 weeks."
+              </p>
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; background:rgba(255,255,255,0.06); padding:12px 16px; border-radius:12px;">
+                <div>
+                  <span style="font-size:0.75rem; color:#94A3B8; display:block;">Est. Contract Value</span>
+                  <strong style="color:#FFBD61; font-size:1.1rem;">₹2,50,000 INR</strong>
+                </div>
+                <div>
+                  <span style="font-size:0.75rem; color:#94A3B8; display:block;">Deal Priority</span>
+                  <strong style="color:#60FF8C; font-size:0.95rem;">High Urgency (ASAP)</strong>
+                </div>
+                <button class="btn btn-mint btn-sm" onclick="openWhatsApp('Hi! Here is your requested LeadFlow 360 AI Enterprise Proposal...')">💬 Trigger WhatsApp Deep-Link</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- High-Impact Metrics Grid -->
+          <div class="stats-grid" style="margin-bottom:36px;">
+            <div class="stat-card stat-purple">
+              <div class="stat-label">Conversion Growth</div>
+              <div class="stat-value" style="color:var(--color-purple-dark);">+420%</div>
+              <div class="stat-sub">High-Intent Lead Yield</div>
+            </div>
+            <div class="stat-card stat-mint">
+              <div class="stat-label">Deal Velocity</div>
+              <div class="stat-value" style="color:#059669;">3.5x</div>
+              <div class="stat-sub">Faster Inbound Response Time</div>
+            </div>
+            <div class="stat-card stat-amber">
+              <div class="stat-label">Intent Vector Dims</div>
+              <div class="stat-value" style="color:#B45309;">128-Dim</div>
+              <div class="stat-sub">Real-Time Qualification Rules</div>
+            </div>
+            <div class="stat-card stat-purple">
+              <div class="stat-label">Database Speed</div>
+              <div class="stat-value" style="color:var(--color-purple-dark);">&lt;10ms</div>
+              <div class="stat-sub">WASM SQLite Edge Storage</div>
+            </div>
+          </div>
+
+          <!-- Core Feature Cards Grid -->
+          <h3 style="font-size:1.4rem; font-weight:900; margin-bottom:20px; color:var(--text-main);">⚡ Core Capabilities</h3>
+          <div class="feature-grid">
+            <div class="feature-card">
+              <span class="feature-icon">🧠</span>
+              <div class="feature-title">128-Dim Intent Scoring</div>
+              <div class="feature-desc">Analyzes budget, project fit, and urgency from raw inbound text to rank leads automatically.</div>
+            </div>
+
+            <div class="feature-card">
+              <span class="feature-icon">💬</span>
+              <div class="feature-title">WhatsApp 1-Click Trigger</div>
+              <div class="feature-desc">Generates personalized proposal drafts and launches instant WhatsApp deep-links.</div>
+            </div>
+
+            <div class="feature-card">
+              <span class="feature-icon">📊</span>
+              <div class="feature-title">5-Stage Sales Kanban</div>
+              <div class="feature-desc">Drag-and-drop pipeline management with SLA violation alerts and stage tracking.</div>
+            </div>
+
+            <div class="feature-card">
+              <span class="feature-icon">🎙️</span>
+              <div class="feature-title">Call Transcript Processor</div>
+              <div class="feature-desc">Extracts key requirements and meeting briefs directly from sales call notes.</div>
+            </div>
+          </div>
+
+          <!-- Developer Quickstart Box -->
+          <div class="view-card" style="margin-top:28px;">
+            <h4 style="margin-bottom:12px; font-weight:800; color:var(--text-main);">📦 Developer Quickstart & Open Source NPM Package</h4>
+            <p style="color:var(--text-muted); margin-bottom:16px;">Install and run LeadFlow 360 AI in any Node.js environment directly from NPM:</p>
+            <div class="code-box">
+              <span>npm install leadflow-360-ai</span>
+              <button class="btn btn-mint btn-sm" onclick="navigator.clipboard.writeText('npm install leadflow-360-ai'); alert('Copied to clipboard!');">📋 Copy</button>
+            </div>
+          </div>
+        </section>
+
         <!-- ================= VIEW 1: SALES PIPELINE KANBAN ================= -->
-        <section id="pipeline-view" class="page-view active">
+        <section id="pipeline-view" class="page-view">
           <!-- KPI Stats Grid -->
           <div class="stats-grid">
             <div class="stat-card stat-purple">
@@ -337,9 +444,17 @@
 
       const targetView = document.getElementById(viewId);
       if (targetView) targetView.classList.add('active');
-      if (navElem) navElem.classList.add('active');
+
+      if (!navElem) {
+        document.querySelectorAll('.nav-item').forEach(n => {
+          if (n.getAttribute('href') === `#${viewId}`) n.classList.add('active');
+        });
+      } else {
+        navElem.classList.add('active');
+      }
 
       const titles = {
+        'landing-view': 'Product Showcase & Landing Page',
         'pipeline-view': 'Sales Pipeline',
         'ingestion-view': 'Lead Ingestion',
         'scoring-view': 'Intent & Scoring Rules',
