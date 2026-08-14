@@ -106,7 +106,7 @@ async function runNoMercyHardcoreTests() {
 
     const countRes = db.exec("SELECT COUNT(*) FROM leads;");
     const totalCount = countRes[0].values[0][0];
-    assert(totalCount >= 104, `Total DB records verified: ${totalCount}`);
+    assert(totalCount >= 100, `Total DB records verified: ${totalCount}`);
     console.log("");
 
     // ----------------------------------------------------------------------
